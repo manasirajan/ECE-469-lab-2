@@ -1,0 +1,11 @@
+How many semaphores are available in DLXOS?
+32 semaphores
+How many locks are available in DLXOS?
+64 locks.
+How is a semaphore created in DLXOS?
+semInit() -- you pass in a sem pointer and set the initial value which adds it to the semaphore waiting queue.
+Explain how sem_signal and sem_wait work.
+sem_signal - disables interrupts, increments semaphore value, checks if there are any processes waiting on the semaphore, wakes them up and restores interrupts.
+sem_wait - disables interrupts. if the count <= 0 then puts the process in a waiting queue and puts it to sleep. decrements the sem count and restores the interrupt.
+What is a handle and how is it used to access semaphores in DLXOS?
+A handle is a unique integer ID for each semaphore that corresponds to an index in the Sems array. 
