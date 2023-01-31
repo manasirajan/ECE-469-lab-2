@@ -63,7 +63,29 @@ void main (int argc, char *argv[])
   sem_t o2;
   sem_t h2o;
   sem_t h2;
+  sem_t hno3;
   if ((no = sem_create(0) == SYNC_FAIL)) {
+    Printf("Bad sem_create in "); Printf(argv[0]); Printf("\n");
+    Exit();  	
+  }
+  if ((n2 = sem_create(0) == SYNC_FAIL)) {
+    Printf("Bad sem_create in "); Printf(argv[0]); Printf("\n");
+    Exit();  	
+  }
+  if ((o2 = sem_create(0) == SYNC_FAIL)) {
+    Printf("Bad sem_create in "); Printf(argv[0]); Printf("\n");
+    Exit();  	
+  }
+  if ((h2o = sem_create(0) == SYNC_FAIL)) {
+    Printf("Bad sem_create in "); Printf(argv[0]); Printf("\n");
+    Exit();  	
+  }
+  if ((h2 = sem_create(0) == SYNC_FAIL)) {
+    Printf("Bad sem_create in "); Printf(argv[0]); Printf("\n");
+    Exit();  	
+  }
+  if ((hno3 = sem_create(0) == SYNC_FAIL)) {
+    Printf("Bad sem_create in "); Printf(argv[0]); Printf("\n");
     Exit();  	
   }
 
@@ -72,15 +94,25 @@ void main (int argc, char *argv[])
   // Setup the command-line arguments for the new process.  We're going to
   // pass the handles to the shared memory page and the semaphore as strings
   // on the command line, so we must first convert them from ints to strings.
-  ditoa(h_mem, h_mem_str);
+  //ditoa(h_mem, h_mem_str);
   ditoa(s_procs_completed, s_procs_completed_str);
-  ditoa(mutex, mutex_str);
+  ditoa(no, no_completed_str);
+  ditoa(n2, n2_completed_str);
+  ditoa(o2, o2_completed_str);
+  ditoa(h2o, h2o_completed_str);
+  ditoa(h2, h2_completed_str);
+  ditoa(hno3, hno3_completed_str);
+  
+  // ditoa(mutex, mutex_str);
   // Now we can create the processes.  Note that you MUST end your call to
   // process_create with a NULL argument so that the operating system
   // knows how many arguments you are sending.
   for(i=0; i<numprocs; i++) {
-    process_create(CONSUMER, h_mem_str, s_procs_completed_str, mutex_str NULL);
-    process_create(PRODUCER, h_mem_str, s_procs_completed_str, mutex_str NULL);
+    process_create(INJECTION1, no, s_procs_completed_str, argv[1], NULL);
+    process_create(INJECTION2, h_mem_str, s_procs_completed_str, mutex_str, NULL);
+    process_create(PROCESS1, h_mem_str, s_procs_completed_str, mutex_str, NULL);
+    process_create(PROCESS2, h_mem_str, s_procs_completed_str, mutex_str, NULL);
+    process_create(PROCESS3, h_mem_str, s_procs_completed_str, mutex_str, NULL);
     Printf("Process %d created\n", i);
   }
 
