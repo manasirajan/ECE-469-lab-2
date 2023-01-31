@@ -108,11 +108,11 @@ void main (int argc, char *argv[])
   // process_create with a NULL argument so that the operating system
   // knows how many arguments you are sending.
   for(i=0; i<numprocs; i++) {
-    process_create(INJECTION1, no, s_procs_completed_str, argv[1], NULL);
-    process_create(INJECTION2, h_mem_str, s_procs_completed_str, mutex_str, NULL);
-    process_create(PROCESS1, h_mem_str, s_procs_completed_str, mutex_str, NULL);
-    process_create(PROCESS2, h_mem_str, s_procs_completed_str, mutex_str, NULL);
-    process_create(PROCESS3, h_mem_str, s_procs_completed_str, mutex_str, NULL);
+    process_create(INJECTION1, no_completed_str, s_procs_completed_str, argv[1], NULL);
+    process_create(INJECTION2, h2o_completed_str, s_procs_completed_str, argv[2], NULL);
+    process_create(PROCESS1, no_completed_str, n2_completed_str, o2_completed_str, s_procs_completed_str, argv[1]/2, NULL);
+    process_create(PROCESS2, h2o_completed_str, h2_completed_str, o2_completed_str, s_procs_completed_str, argv[2]/2, NULL);
+    process_create(PROCESS3, h2_completed_str, n2_completed_str, o2_completed_str, hno3_completed_str, s_procs_completed_str, (argv[1] + argv[2])/6, NULL);
     Printf("Process %d created\n", i);
   }
 
